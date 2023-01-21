@@ -1,2 +1,1 @@
-# zero-downtime-deployments-with-podman
-Zero-downtime deployments with Podman (or Docker)
+# Zero-downtime deployments with Podman (or Docker)
