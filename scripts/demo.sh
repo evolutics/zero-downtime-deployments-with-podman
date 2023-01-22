@@ -12,7 +12,7 @@ podman run --detach --name reverse-proxy --network test-net \
   docker.io/caddy:2-alpine
 
 podman run --detach --env HI_VERSION=0 --name hi-v0 --network test-net \
-  --network-alias say-hi --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
+  --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
 sleep 2s
@@ -25,7 +25,7 @@ while true; do
 done | tee test.log &
 
 podman run --detach --env HI_VERSION=1 --name hi-v1 --network test-net \
-  --network-alias say-hi --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
+  --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
 sleep 2s
