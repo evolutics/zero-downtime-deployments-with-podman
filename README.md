@@ -1,5 +1,9 @@
 # Zero-downtime deployments with Podman (or Docker)
 
+The motivation is to deploy an updated version of a container without service
+interruption. We want to keep it lightweight and only use (rootless) Podman or
+Docker.
+
 ## Overview
 
 ```
