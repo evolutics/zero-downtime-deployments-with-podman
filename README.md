@@ -6,6 +6,10 @@ Docker.
 
 ## Overview
 
+Say we want to replace a service container `hi-v0` by `hi-v1`. To keep the
+service always available during such a deployment, a reverse proxy forwards
+access to the service container(s) via their identical network alias "greet".
+
 ```
                                    ┃ localhost:8080
 ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┃┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
