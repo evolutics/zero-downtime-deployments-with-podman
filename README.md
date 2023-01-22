@@ -6,9 +6,9 @@ Docker.
 
 ## Overview
 
-Say we want to replace a service container `hi-v0` by `hi-v1`. To keep the
-service always available during such a deployment, a reverse proxy forwards
-access to the service container(s) via their identical network alias "greet":
+Say we want to replace a service container `hi-0` by `hi-1`. To keep the service
+always available during such a deployment, a reverse proxy forwards access to
+the service container(s) via their identical network alias "greet":
 
 ```
                                    ┃ localhost:8080
@@ -21,7 +21,7 @@ access to the service container(s) via their identical network alias "greet":
 ┆                   ┃                             ┃                   ┆
 ┆                   ┃ greet:80                    ┃ greet:80          ┆
 ┆         ╭─────────┸─────────╮         ╭─────────┸─────────╮         ┆
-┆         │ Container hi-v0   │         │ Container hi-v1   │         ┆
+┆         │ Container hi-0    │         │ Container hi-1    │         ┆
 ┆         ╰───────────────────╯         ╰───────────────────╯         ┆
 ┆                                                                     ┆
 ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
@@ -31,10 +31,10 @@ At any given time, at least one service container is available by making sure
 their lifetimes overlap:
 
 ```
-hi-v0 ready                              hi-v0 stopping
+hi-0 ready                               hi-0 stopping
 ❰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┽┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┨
 
-           hi-v1 starting      hi-v1 ready
+           hi-1 starting       hi-1 ready
           ┠┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┾━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━❱
 ```
 
@@ -57,7 +57,7 @@ hi-v0 ready                              hi-v0 stopping
 1. **Start version 0** of your service with
 
    ```bash
-   podman run --detach --env HI_VERSION=0 --name hi-v0 --network test-net \
+   podman run --detach --env HI_VERSION=0 --name hi-0 --network test-net \
      --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
      docker.io/caddy:2-alpine
    ```
@@ -78,7 +78,7 @@ hi-v0 ready                              hi-v0 stopping
 1. **Start version 1** of your service with
 
    ```bash
-   podman run --detach --env HI_VERSION=1 --name hi-v1 --network test-net \
+   podman run --detach --env HI_VERSION=1 --name hi-1 --network test-net \
      --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
      docker.io/caddy:2-alpine
    ```
@@ -89,7 +89,7 @@ hi-v0 ready                              hi-v0 stopping
 1. **Stop version 0** of your service with
 
    ```bash
-   podman stop hi-v0
+   podman stop hi-0
    ```
 
    Testing with `curl localhost:8080` should now return "Hi from _v1_". With
@@ -98,8 +98,8 @@ hi-v0 ready                              hi-v0 stopping
 1. Optionally **clean up** above experiments with
 
    ```bash
-   podman stop hi-v1 reverse-proxy
-   podman rm hi-v0 hi-v1 reverse-proxy
+   podman stop hi-1 reverse-proxy
+   podman rm hi-0 hi-1 reverse-proxy
    podman network rm test-net
    ```
 
