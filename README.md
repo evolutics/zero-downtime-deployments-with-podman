@@ -108,3 +108,8 @@ podman network rm test-net
 ## Docker
 
 Above also works with Docker, just replace `podman` by `docker` in the commands.
+
+## See also
+
+Like to automate this? See
+[Wheelsticks](https://github.com/evolutics/wheelsticks)!
