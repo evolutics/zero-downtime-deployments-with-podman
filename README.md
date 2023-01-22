@@ -8,7 +8,7 @@ Docker.
 
 Say we want to replace a service container `hi-v0` by `hi-v1`. To keep the
 service always available during such a deployment, a reverse proxy forwards
-access to the service container(s) via their identical network alias "greet".
+access to the service container(s) via their identical network alias "greet":
 
 ```
                                    ┃ localhost:8080
@@ -25,6 +25,17 @@ access to the service container(s) via their identical network alias "greet".
 ┆         ╰───────────────────╯         ╰───────────────────╯         ┆
 ┆                                                                     ┆
 ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
+```
+
+At any given time, at least one service container is available by making sure
+their lifetimes overlap:
+
+```
+hi-v0 ready                              hi-v0 stopping
+❰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┽┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┨
+
+           hi-v1 starting      hi-v1 ready
+          ┠┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┾━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━❱
 ```
 
 ## Demo
