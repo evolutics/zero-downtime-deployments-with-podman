@@ -40,6 +40,8 @@ hi-0 ready                               hi-0 stopping
 
 ## Demo
 
+The following shows how to do such a deployment interactively.
+
 1. Run the **reverse proxy** on a network with
 
    ```bash
@@ -95,13 +97,13 @@ hi-0 ready                               hi-0 stopping
    Testing with `curl localhost:8080` should now return "Hi from _v1_". With
    that, the update is deployed.
 
-1. Optionally **clean up** above experiments with
+You can clean up above experiments with
 
-   ```bash
-   podman stop hi-1 reverse-proxy
-   podman rm hi-0 hi-1 reverse-proxy
-   podman network rm test-net
-   ```
+```bash
+podman stop hi-1 reverse-proxy
+podman rm hi-0 hi-1 reverse-proxy
+podman network rm test-net
+```
 
 ## Docker
 
