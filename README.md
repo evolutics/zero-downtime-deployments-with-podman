@@ -64,3 +64,7 @@
    podman rm hi-v0 hi-v1 reverse-proxy
    podman network rm test-net
    ```
+
+## Docker
+
+Above also works with Docker, just replace `podman` by `docker` in the commands.
