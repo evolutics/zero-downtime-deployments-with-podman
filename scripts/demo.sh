@@ -17,8 +17,6 @@ podman run --detach --env HI_VERSION=0 --name hi-0 --network test-net \
 
 sleep 2s
 
-: >test.log
-
 while true; do
   curl --fail --max-time 0.2 --silent localhost:8080 || echo "Error $?"
   sleep 0.01s
