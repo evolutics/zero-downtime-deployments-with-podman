@@ -54,7 +54,7 @@ The following shows how to do such a deployment interactively.
    ```
 
    This Caddy reverse proxy forwards port 80 to the DNS name "greet" (see its
-   [`Caddyfile`](reverse-proxy.Caddyfile) for details).
+   [Caddyfile](reverse-proxy.Caddyfile)).
 
 1. **Start version 0** of your service with
 
