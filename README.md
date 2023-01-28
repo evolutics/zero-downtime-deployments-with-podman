@@ -105,6 +105,8 @@ podman rm hi-0 hi-1 reverse-proxy
 podman network rm test-net
 ```
 
+Run the whole demo automatically with the script `scripts/demo.sh`.
+
 ## Docker
 
 Above also works with Docker, just replace `podman` by `docker` in the commands.
