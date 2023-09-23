@@ -34,8 +34,8 @@ sleep 2s
 
 kill %%
 
-grep 'Hi from vA' test.log
-grep 'Hi from vB' test.log
+grep 'Hi from A' test.log
+grep 'Hi from B' test.log
 grep Error test.log && exit 1
 
 podman stop hi-1 reverse-proxy

@@ -69,7 +69,7 @@ The following shows how to do such a deployment interactively.
    This container happens to use Caddy as well, but it can be anything that
    exposes port 80.
 
-   Testing with `curl localhost:8080` should now return "Hi from _vA_".
+   Testing with `curl localhost:8080` should now return "Hi from _A_".
 
    To see the following update in action, you could keep a test loop running in
    a separate shell session with
@@ -95,7 +95,7 @@ The following shows how to do such a deployment interactively.
    podman stop hi-0
    ```
 
-   Testing with `curl localhost:8080` should now return "Hi from _vB_". With
+   Testing with `curl localhost:8080` should now return "Hi from _B_". With
    that, the update is deployed.
 
 You can clean up above experiments with

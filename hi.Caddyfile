@@ -4,5 +4,5 @@
 
 :80
 
-respond "Hi from v{$HI_VERSION}
+respond "Hi from {$HI_VERSION}
 "
