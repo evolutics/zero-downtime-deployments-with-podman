@@ -24,6 +24,8 @@ while true; do
   sleep 0.01s
 done | tee test.log &
 
+sleep 2s
+
 "${engine}" run --detach --env HI_VERSION=B --name hi-1 --network test-net \
   --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
