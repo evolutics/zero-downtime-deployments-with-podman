@@ -69,9 +69,10 @@ The following shows how to do such a deployment interactively.
    This container happens to use Caddy as well, but it can be anything that
    exposes port 80.
 
-   Testing with `curl localhost:8080` should now return "Hi from _v0_". To see
-   the following update in action, you could keep a test loop running in a
-   separate shell session with
+   Testing with `curl localhost:8080` should now return "Hi from _v0_".
+
+   To see the following update in action, you could keep a test loop running in
+   a separate shell session with
 
    ```bash
    while true; do curl --fail --max-time 0.2 localhost:8080; sleep 0.01s; done
