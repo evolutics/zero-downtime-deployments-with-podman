@@ -56,10 +56,10 @@ The following shows how to do such a deployment interactively.
    This Caddy reverse proxy forwards port 80 to the DNS name "greet" (see its
    [Caddyfile](reverse-proxy.Caddyfile)).
 
-1. **Start version 0** of your service with
+1. **Start version A** of your service with
 
    ```bash
-   podman run --detach --env HI_VERSION=0 --name hi-0 --network test-net \
+   podman run --detach --env HI_VERSION=A --name hi-0 --network test-net \
      --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
      docker.io/caddy:2-alpine
    ```
@@ -69,7 +69,7 @@ The following shows how to do such a deployment interactively.
    This container happens to use Caddy as well, but it can be anything that
    exposes port 80.
 
-   Testing with `curl localhost:8080` should now return "Hi from _v0_".
+   Testing with `curl localhost:8080` should now return "Hi from _vA_".
 
    To see the following update in action, you could keep a test loop running in
    a separate shell session with
@@ -78,10 +78,10 @@ The following shows how to do such a deployment interactively.
    while true; do curl --fail --max-time 0.2 localhost:8080; sleep 0.01s; done
    ```
 
-1. **Start version 1** of your service with
+1. **Start version B** of your service with
 
    ```bash
-   podman run --detach --env HI_VERSION=1 --name hi-1 --network test-net \
+   podman run --detach --env HI_VERSION=B --name hi-1 --network test-net \
      --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
      docker.io/caddy:2-alpine
    ```
@@ -89,13 +89,13 @@ The following shows how to do such a deployment interactively.
    At this point, both service versions are running at the same time with the
    same network alias.
 
-1. **Stop version 0** of your service with
+1. **Stop version A** of your service with
 
    ```bash
    podman stop hi-0
    ```
 
-   Testing with `curl localhost:8080` should now return "Hi from _v1_". With
+   Testing with `curl localhost:8080` should now return "Hi from _vB_". With
    that, the update is deployed.
 
 You can clean up above experiments with

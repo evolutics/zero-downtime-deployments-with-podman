@@ -11,7 +11,7 @@ podman run --detach --name reverse-proxy --network test-net \
   --volume "${PWD}/reverse-proxy.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
-podman run --detach --env HI_VERSION=0 --name hi-0 --network test-net \
+podman run --detach --env HI_VERSION=A --name hi-0 --network test-net \
   --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
@@ -22,7 +22,7 @@ while true; do
   sleep 0.01s
 done | tee test.log &
 
-podman run --detach --env HI_VERSION=1 --name hi-1 --network test-net \
+podman run --detach --env HI_VERSION=B --name hi-1 --network test-net \
   --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
@@ -34,8 +34,8 @@ sleep 2s
 
 kill %%
 
-grep 'Hi from v0' test.log
-grep 'Hi from v1' test.log
+grep 'Hi from vA' test.log
+grep 'Hi from vB' test.log
 grep Error test.log && exit 1
 
 podman stop hi-1 reverse-proxy
