@@ -10,7 +10,8 @@ main() {
 
   git ls-files -z | xargs -0 travel-kit check --
 
-  scripts/demo.sh
+  scripts/demo.sh docker
+  scripts/demo.sh podman
 }
 
 main "$@"

@@ -4,14 +4,16 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-podman network create test-net
+declare -r engine="${1-podman}"
 
-podman run --detach --name reverse-proxy --network test-net \
+"${engine}" network create test-net
+
+"${engine}" run --detach --name reverse-proxy --network test-net \
   --publish 127.0.0.1:8080:80 \
   --volume "${PWD}/reverse-proxy.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
-podman run --detach --env HI_VERSION=A --name hi-0 --network test-net \
+"${engine}" run --detach --env HI_VERSION=A --name hi-0 --network test-net \
   --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
@@ -22,13 +24,13 @@ while true; do
   sleep 0.01s
 done | tee test.log &
 
-podman run --detach --env HI_VERSION=B --name hi-1 --network test-net \
+"${engine}" run --detach --env HI_VERSION=B --name hi-1 --network test-net \
   --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
   docker.io/caddy:2-alpine
 
 sleep 2s
 
-podman stop hi-0
+"${engine}" stop hi-0
 
 sleep 2s
 
@@ -38,6 +40,6 @@ grep 'Hi from A' test.log
 grep 'Hi from B' test.log
 grep Error test.log && exit 1
 
-podman stop hi-1 reverse-proxy
-podman rm hi-0 hi-1 reverse-proxy
-podman network rm test-net
+"${engine}" stop hi-1 reverse-proxy
+"${engine}" rm hi-0 hi-1 reverse-proxy
+"${engine}" network rm test-net
