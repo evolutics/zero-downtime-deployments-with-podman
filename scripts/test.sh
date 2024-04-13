@@ -8,7 +8,7 @@ main() {
   local -r script_folder="$(dirname "$(readlink --canonicalize "$0")")"
   cd "$(dirname "${script_folder}")"
 
-  git ls-files -z | xargs -0 travel-kit check --
+  travel-kit
 
   scripts/demo.sh docker
   scripts/demo.sh podman
