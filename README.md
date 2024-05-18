@@ -114,5 +114,4 @@ Above also works with Docker, just replace `podman` by `docker` in the commands.
 
 ## See also
 
-Like to automate this? See
-[Wheelsticks](https://github.com/evolutics/wheelsticks)!
+Like to automate this? See [Kerek](https://github.com/evolutics/kerek)!
