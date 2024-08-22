@@ -10,8 +10,7 @@ declare -r engine="${1-podman}"
 
 "${engine}" run --detach --name reverse-proxy --network test-net \
   --publish 127.0.0.1:8080:80 \
-  --volume "${PWD}/reverse-proxy.Caddyfile:/etc/caddy/Caddyfile" \
-  docker.io/caddy:2-alpine
+  docker.io/caddy:2-alpine caddy reverse-proxy --from :80 --to greet
 
 "${engine}" run --detach --env HI_VERSION=A --name hi-0 --network test-net \
   --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \

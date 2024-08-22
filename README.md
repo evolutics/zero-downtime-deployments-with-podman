@@ -49,12 +49,10 @@ The following shows how to do such a deployment interactively.
 
    podman run --detach --name reverse-proxy --network test-net \
      --publish 127.0.0.1:8080:80 \
-     --volume "${PWD}/reverse-proxy.Caddyfile:/etc/caddy/Caddyfile" \
-     docker.io/caddy:2-alpine
+     docker.io/caddy:2-alpine caddy reverse-proxy --from :80 --to greet
    ```
 
-   This Caddy reverse proxy forwards port 80 to the DNS name "greet" (see its
-   [Caddyfile](reverse-proxy.Caddyfile)).
+   This Caddy reverse proxy forwards port 80 to the DNS name "greet".
 
 1. **Start version A** of your service with
 
