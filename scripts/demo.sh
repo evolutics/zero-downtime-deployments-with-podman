@@ -12,9 +12,8 @@ declare -r engine="${1-podman}"
   --publish 127.0.0.1:8080:80 \
   docker.io/caddy:2-alpine caddy reverse-proxy --from :80 --to greet
 
-"${engine}" run --detach --env HI_VERSION=A --name hi-0 --network test-net \
-  --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
-  docker.io/caddy:2-alpine
+"${engine}" run --detach --name hi-0 --network test-net --network-alias greet \
+  docker.io/caddy:2-alpine caddy respond --listen :80 $'Hi from A\n'
 
 sleep 2s
 
@@ -25,9 +24,8 @@ done | tee test.log &
 
 sleep 2s
 
-"${engine}" run --detach --env HI_VERSION=B --name hi-1 --network test-net \
-  --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
-  docker.io/caddy:2-alpine
+"${engine}" run --detach --name hi-1 --network test-net --network-alias greet \
+  docker.io/caddy:2-alpine caddy respond --listen :80 $'Hi from B\n'
 
 sleep 2s
 

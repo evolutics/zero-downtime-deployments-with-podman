@@ -57,9 +57,8 @@ The following shows how to do such a deployment interactively.
 1. **Start version A** of your service with
 
    ```bash
-   podman run --detach --env HI_VERSION=A --name hi-0 --network test-net \
-     --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
-     docker.io/caddy:2-alpine
+   podman run --detach --name hi-0 --network test-net --network-alias greet \
+     docker.io/caddy:2-alpine caddy respond --listen :80 $'Hi from A\n'
    ```
 
    Most importantly, we give the container the network alias "greet".
@@ -79,9 +78,8 @@ The following shows how to do such a deployment interactively.
 1. **Start version B** of your service with
 
    ```bash
-   podman run --detach --env HI_VERSION=B --name hi-1 --network test-net \
-     --network-alias greet --volume "${PWD}/hi.Caddyfile:/etc/caddy/Caddyfile" \
-     docker.io/caddy:2-alpine
+   podman run --detach --name hi-1 --network test-net --network-alias greet \
+     docker.io/caddy:2-alpine caddy respond --listen :80 $'Hi from B\n'
    ```
 
    At this point, both service versions are running at the same time with the
