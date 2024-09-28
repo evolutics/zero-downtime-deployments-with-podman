@@ -39,6 +39,5 @@ grep 'Hi from A' test.log
 grep 'Hi from B' test.log
 grep Error test.log && exit 1
 
-"${engine}" stop hi-1 reverse-proxy
-"${engine}" rm hi-0 hi-1 reverse-proxy
+"${engine}" rm --force hi-0 hi-1 reverse-proxy
 "${engine}" network rm test-net
