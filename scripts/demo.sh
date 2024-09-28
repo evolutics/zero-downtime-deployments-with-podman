@@ -35,9 +35,10 @@ sleep 2s
 
 kill %%
 
+"${engine}" rm --force hi-0 hi-1 reverse-proxy
+"${engine}" network rm test-net
+
 grep 'Hi from A' test.log
 grep 'Hi from B' test.log
 grep Error test.log && exit 1
-
-"${engine}" rm --force hi-0 hi-1 reverse-proxy
-"${engine}" network rm test-net
+:
