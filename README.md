@@ -14,7 +14,7 @@ the service container(s) via their identical network alias "greet":
                                    ┃ localhost:8080
 ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┃┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
 ┆ Network test-net                 ┃                                  ┆
-┆                                  ┃ :80                              ┆
+┆                                  ┃ :81                              ┆
 ┆         ╭────────────────────────┸────────────────────────╮         ┆
 ┆         │ Container reverse-proxy                         │         ┆
 ┆         ╰─────────┰─────────────────────────────┰─────────╯         ┆
@@ -48,11 +48,11 @@ The following shows how to do such a deployment interactively.
    podman network create test-net
 
    podman run --detach --name reverse-proxy --network test-net \
-     --publish 127.0.0.1:8080:80 \
-     docker.io/caddy:2-alpine caddy reverse-proxy --from :80 --to greet
+     --publish 127.0.0.1:8080:81 \
+     docker.io/caddy:2-alpine caddy reverse-proxy --from :81 --to greet
    ```
 
-   This Caddy reverse proxy forwards port 80 to the DNS name "greet".
+   This Caddy reverse proxy forwards port 81 to the DNS name "greet".
 
 1. **Start version A** of your service with
 
