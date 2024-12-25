@@ -52,7 +52,7 @@ The following shows how to do such a deployment interactively.
      docker.io/caddy:2-alpine caddy reverse-proxy --from :81 --to greet
    ```
 
-   This Caddy reverse proxy forwards port 81 to the DNS name "greet".
+   This Caddy reverse proxy forwards port 81 to the DNS name "greet" on port 80.
 
 1. **Start version A** of your service with
 
