@@ -106,6 +106,7 @@ Run the whole demo automatically with the script `scripts/demo.sh`.
 
 Above also works with Docker, just replace `podman` by `docker` in the commands.
 
-## See also
+## Docker Compose
 
-Like to automate this? See [Kerek](https://github.com/evolutics/kerek)!
+Above can be automated in Docker Compose with
+[Kerek (see example there)](https://github.com/evolutics/kerek).
