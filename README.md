@@ -30,11 +30,13 @@ At any given time, at least one service container is available by making sure
 their lifetimes overlap:
 
 ```
-hi-0 ready                               hi-0 stopping
-❰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┽┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┨
+____________________________________
+Container hi-0                      Stop
+                        ____________________________________
+                        Start                 Container hi-1
 
-           hi-1 starting       hi-1 ready
-          ┠┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┾━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━❱
+                        ^^^^^^^^^^^^
+                        Overlap
 ```
 
 ## Demo
