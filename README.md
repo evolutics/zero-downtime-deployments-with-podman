@@ -12,8 +12,8 @@ the service container(s) via their identical network alias "greet":
 ```mermaid
 flowchart TD
     localhost:8080 ---|:81| proxy[Container reverse-proxy]
-    proxy ---|greet:80| hi0[Container hi-0]
-    proxy ---|greet:80| hi1[Container hi-1]
+    proxy ---|greet:8282| hi0[Container hi-0]
+    proxy ---|greet:8282| hi1[Container hi-1]
 ```
 
 At any given time, at least one service container is available by making sure
@@ -40,22 +40,20 @@ The following shows how to do such a deployment interactively.
 
    podman run --detach --name reverse-proxy --network test-net \
      --publish 127.0.0.1:8080:81 \
-     docker.io/caddy:2-alpine caddy reverse-proxy --from :81 --to greet
+     docker.io/caddy:2-alpine caddy reverse-proxy --from :81 --to greet:8282
    ```
 
-   This Caddy reverse proxy forwards port 81 to the DNS name "greet" on port 80.
+   This Caddy reverse proxy forwards port 81 to the DNS name "greet", port 8282.
 
 1. **Start version A** of your service with
 
    ```bash
    podman run --detach --name hi-0 --network test-net --network-alias greet \
-     docker.io/caddy:2-alpine caddy respond --listen :80 $'Hi from A\n'
+     docker.io/hashicorp/http-echo:1.0 -listen=:8282 -text='Hi from A'
    ```
 
-   Most importantly, we give the container the network alias "greet".
-
-   This container happens to use Caddy as well, but it can be anything that
-   exposes port 80.
+   This container responds with a greeting to requests on port 8282. Most
+   importantly, we give it the network alias "greet".
 
    Testing with `curl localhost:8080` should now return "Hi from _A_".
 
@@ -70,7 +68,7 @@ The following shows how to do such a deployment interactively.
 
    ```bash
    podman run --detach --name hi-1 --network test-net --network-alias greet \
-     docker.io/caddy:2-alpine caddy respond --listen :80 $'Hi from B\n'
+     docker.io/hashicorp/http-echo:1.0 -listen=:8282 -text='Hi from B'
    ```
 
    At this point, both service versions are running at the same time with the
