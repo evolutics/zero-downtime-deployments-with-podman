@@ -9,21 +9,11 @@ Say we want to replace a service container `hi-0` by `hi-1`. To keep the service
 always available during such a deployment, a reverse proxy forwards access to
 the service container(s) via their identical network alias "greet":
 
-```
-                                   ┃ localhost:8080
-╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┃┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
-┆ Network test-net                 ┃                                  ┆
-┆                                  ┃ :81                              ┆
-┆         ╭────────────────────────┸────────────────────────╮         ┆
-┆         │ Container reverse-proxy                         │         ┆
-┆         ╰─────────┰─────────────────────────────┰─────────╯         ┆
-┆                   ┃                             ┃                   ┆
-┆                   ┃ greet:80                    ┃ greet:80          ┆
-┆         ╭─────────┸─────────╮         ╭─────────┸─────────╮         ┆
-┆         │ Container hi-0    │         │ Container hi-1    │         ┆
-┆         ╰───────────────────╯         ╰───────────────────╯         ┆
-┆                                                                     ┆
-╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
+```mermaid
+flowchart TD
+    localhost:8080 ---|:81| proxy[Container reverse-proxy]
+    proxy ---|greet:80| hi0[Container hi-0]
+    proxy ---|greet:80| hi1[Container hi-1]
 ```
 
 At any given time, at least one service container is available by making sure
