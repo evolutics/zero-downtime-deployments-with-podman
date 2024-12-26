@@ -8,7 +8,7 @@ declare -r engine="${1-podman}"
 
 "${engine}" run --detach --name reverse-proxy --network test-net \
   --publish 127.0.0.1:8080:81 \
-  docker.io/caddy:2-alpine caddy reverse-proxy --from :81 --to greet:8282
+  docker.io/caddy:2 caddy reverse-proxy --from :81 --to greet:8282
 
 "${engine}" run --detach --name hi-0 --network test-net --network-alias greet \
   docker.io/hashicorp/http-echo:1.0 -listen=:8282 -text='Hi from A'

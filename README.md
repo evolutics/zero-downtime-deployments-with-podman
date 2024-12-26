@@ -40,7 +40,7 @@ The following shows how to do such a deployment interactively.
 
    podman run --detach --name reverse-proxy --network test-net \
      --publish 127.0.0.1:8080:81 \
-     docker.io/caddy:2-alpine caddy reverse-proxy --from :81 --to greet:8282
+     docker.io/caddy:2 caddy reverse-proxy --from :81 --to greet:8282
    ```
 
    This Caddy reverse proxy forwards port 81 to the DNS name "greet", port 8282.
