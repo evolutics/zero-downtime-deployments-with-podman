@@ -100,3 +100,8 @@ Above also works with Docker, just replace `podman` by `docker` in the commands.
 
 Above can be automated in Docker Compose with
 [Kerek (see example there)](https://github.com/evolutics/kerek).
+
+## Known issues
+
+If possible, use the very latest Podman version as earlier versions may not pass
+above demo; Podman 5.2.3 for instance has shown intermittent DNS issues.
