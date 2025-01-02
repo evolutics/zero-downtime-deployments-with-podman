@@ -98,7 +98,7 @@ Run the whole demo automatically with the script `scripts/demo.sh`.
 
 ## Docker Compose
 
-Above can be automated in Docker Compose with
+Above can be automated in Docker Compose with the support of
 [Kerek (see example there)](https://github.com/evolutics/kerek).
 
 ## Tested reverse proxies
