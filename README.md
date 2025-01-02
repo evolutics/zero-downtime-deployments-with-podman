@@ -3,6 +3,9 @@
 The motivation is to deploy an updated version of a container without service
 interruption. We want to keep things lightweight and only use rootless Podman.
 
+This works with Docker, too, just replace `podman` by `docker` in the commands
+below.
+
 ## Overview
 
 Say we want to replace a service container `hi-0` by `hi-1`. To keep the service
@@ -92,10 +95,6 @@ podman network rm test-net
 ```
 
 Run the whole demo automatically with the script `scripts/demo.sh`.
-
-## Docker
-
-Above also works with Docker, just replace `podman` by `docker` in the commands.
 
 ## Docker Compose
 
