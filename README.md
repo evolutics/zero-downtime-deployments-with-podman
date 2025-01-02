@@ -11,7 +11,7 @@ the service container(s) via their identical network alias "greet":
 
 ```mermaid
 flowchart TD
-    localhost:8080 ---|:81| proxy[Container reverse-proxy]
+    localhost:8080 ---|:8181| proxy[Container reverse-proxy]
     proxy ---|greet:8282| hi0[Container hi-0]
     proxy ---|greet:8282| hi1[Container hi-1]
 ```
@@ -39,11 +39,12 @@ The following shows how to do such a deployment interactively.
    podman network create test-net
 
    podman run --detach --name reverse-proxy --network test-net \
-     --publish 127.0.0.1:8080:81 \
-     docker.io/caddy:2 caddy reverse-proxy --from :81 --to greet:8282
+     --publish 127.0.0.1:8080:8181 \
+     docker.io/caddy:2 caddy reverse-proxy --from :8181 --to greet:8282
    ```
 
-   This Caddy reverse proxy forwards port 81 to the DNS name "greet", port 8282.
+   This Caddy reverse proxy forwards port 8181 to the DNS name "greet",
+   port 8282.
 
 1. **Start version A** of your service with
 
