@@ -8,8 +8,10 @@ main() {
 
   travel-kit
 
-  scripts/demo.sh docker
-  scripts/demo.sh podman
+  scripts/demo.sh docker caddy
+  scripts/demo.sh podman caddy
+  scripts/demo.sh docker haproxy
+  scripts/demo.sh podman haproxy
 }
 
 main "$@"

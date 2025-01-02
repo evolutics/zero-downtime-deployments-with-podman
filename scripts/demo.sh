@@ -2,13 +2,29 @@
 
 set -o errexit -o nounset -o pipefail
 
+cd "$(git rev-parse --show-toplevel)"
+
 declare -r engine="${1-podman}"
+declare -r reverse_proxy="${2-caddy}"
 
 "${engine}" network create test-net
 
-"${engine}" run --detach --name reverse-proxy --network test-net \
-  --publish 127.0.0.1:8080:8181 \
-  docker.io/caddy:2 caddy reverse-proxy --from :8181 --to greet:8282
+case "${reverse_proxy}" in
+  caddy)
+    "${engine}" run --detach --name reverse-proxy --network test-net \
+      --publish 127.0.0.1:8080:8181 \
+      docker.io/caddy:2 caddy reverse-proxy --from :8181 --to greet:8282
+    ;;
+  haproxy)
+    "${engine}" run --detach --name reverse-proxy --network test-net \
+      --publish 127.0.0.1:8080:8181 \
+      --volume ./haproxy:/usr/local/etc/haproxy:ro docker.io/haproxy:3.1
+    ;;
+  *)
+    echo "Unknown reverse proxy: ${reverse_proxy}"
+    exit 1
+    ;;
+esac
 
 "${engine}" run --detach --name hi-0 --network test-net --network-alias greet \
   docker.io/hashicorp/http-echo:1.0 -listen=:8282 -text='Hi from A'

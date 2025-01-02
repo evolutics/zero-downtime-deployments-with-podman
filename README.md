@@ -102,6 +102,15 @@ Above also works with Docker, just replace `podman` by `docker` in the commands.
 Above can be automated in Docker Compose with
 [Kerek (see example there)](https://github.com/evolutics/kerek).
 
+## Tested reverse proxies
+
+These reverse proxies have been tested:
+
+- Caddy
+- HAProxy
+
+See the [demo code](scripts/demo.sh) for an example each.
+
 ## Known issues
 
 If possible, use the very latest Podman version as earlier versions may not pass
