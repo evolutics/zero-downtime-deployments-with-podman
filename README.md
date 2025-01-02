@@ -46,7 +46,7 @@ The following shows how to do such a deployment interactively.
      docker.io/caddy:2 caddy reverse-proxy --from :8181 --to greet:8282
    ```
 
-   This Caddy reverse proxy forwards port 8181 to the domain name `greet`,
+   This Caddy reverse proxy forwards port 8181 to the domain name `greet` on
    port 8282.
 
 1. **Start version A** of your service with
