@@ -36,18 +36,22 @@ Container hi-0                      Stop
 
 The following shows how to do such a deployment interactively.
 
-1. Run the **reverse proxy** on a network with
+1. First, for the containers to reach each other, set up a **network** with
 
    ```bash
    podman network create test-net
+   ```
 
+1. Run the **reverse proxy** on this network with
+
+   ```bash
    podman run --detach --name reverse-proxy --network test-net \
      --publish 127.0.0.1:8080:8181 \
      docker.io/caddy:2 caddy reverse-proxy --from :8181 --to greet:8282
    ```
 
-   This Caddy reverse proxy forwards port 8181 to the domain name `greet` on
-   port 8282.
+   This Caddy instance forwards traffic from port 8080 on localhost to the
+   domain name `greet` in the container network (port 8282).
 
 1. **Start version A** of your service with
 
@@ -56,10 +60,12 @@ The following shows how to do such a deployment interactively.
      docker.io/hashicorp/http-echo:1.0 -listen=:8282 -text='Hi from A'
    ```
 
-   This container responds with a greeting to requests on port 8282. Most
-   importantly, we give it the network alias `greet`.
+   This container simply responds with a greeting on requests.
 
-   Testing with `curl localhost:8080` should now return "Hi from _A_".
+   Crucially, we give it a network alias `greet`, which the reverse proxy can
+   resolve from now on.
+
+   Test it: `curl localhost:8080` returns "Hi from _A_" now.
 
    To see the following update in action, you could keep a test loop running in
    a separate shell session with
@@ -84,10 +90,11 @@ The following shows how to do such a deployment interactively.
    podman stop hi-0
    ```
 
-   Testing with `curl localhost:8080` should now return "Hi from _B_". With
-   that, the update is deployed.
+   With that, the update is done.
 
-You can clean up above experiments with
+   Test it: `curl localhost:8080` returns "Hi from _B_" now.
+
+You can tear down the demo resources with
 
 ```bash
 podman rm --force hi-0 hi-1 reverse-proxy
