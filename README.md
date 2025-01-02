@@ -10,7 +10,7 @@ below.
 
 Say we want to replace a service container `hi-0` by `hi-1`. To keep the service
 always available during such a deployment, a reverse proxy forwards access to
-the service container(s) via their identical network alias `greet`:
+the service container(s) via their identical domain name `greet`:
 
 ```mermaid
 flowchart TD
@@ -46,7 +46,7 @@ The following shows how to do such a deployment interactively.
      docker.io/caddy:2 caddy reverse-proxy --from :8181 --to greet:8282
    ```
 
-   This Caddy reverse proxy forwards port 8181 to the DNS name `greet`,
+   This Caddy reverse proxy forwards port 8181 to the domain name `greet`,
    port 8282.
 
 1. **Start version A** of your service with
