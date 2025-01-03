@@ -120,7 +120,7 @@ Above can be automated in Docker Compose with the support of
 These reverse proxies have been tested:
 
 - Caddy
-- HAProxy
+- HAProxy ([config](haproxy/haproxy.cfg))
 
 See the [demo code](scripts/demo.sh) for an example each.
 
