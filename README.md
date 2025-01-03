@@ -9,7 +9,7 @@ below.
 ## Overview
 
 Say we want to replace a service container `hi-0` by `hi-1`. To keep the service
-always available during such a deployment, a reverse proxy forwards access to
+always available during such a deployment, a reverse proxy forwards traffic to
 the service container(s) via their identical domain name `greet`:
 
 ```mermaid
