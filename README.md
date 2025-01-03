@@ -63,7 +63,7 @@ The following shows how to do such a deployment interactively.
    This container simply responds with a greeting on requests.
 
    Crucially, we give it a network alias `greet`, which the reverse proxy can
-   resolve from now on.
+   then resolve.
 
    Test it: `curl localhost:8080` returns "Hi from _A_" now.
 
