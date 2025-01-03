@@ -112,8 +112,32 @@ Run the whole demo automatically with the script `scripts/demo.sh`.
 
 ## Docker Compose
 
-Above can be automated in Docker Compose with the support of
-[Kerek (see example there)](https://github.com/evolutics/kerek).
+For a more automatic, declarative workflow, above can be achieved in Compose
+with the support of [Kerek](https://github.com/evolutics/kerek).
+
+The Compose file for the demo is this:
+
+```yaml
+# compose.yaml
+services:
+  greet:
+    command: ["-listen=:8282", "-text=Hi from A/B"]
+    deploy:
+      update_config:
+        order: start-first
+    image: "docker.io/hashicorp/http-echo:1.0"
+
+  reverse-proxy:
+    command: ["caddy", "reverse-proxy", "--from", ":8181", "--to", "greet:8282"]
+    image: "docker.io/caddy:2"
+    ports:
+      - "127.0.0.1:8080:8181"
+```
+
+Then simply run `kerek deploy`, which works like `docker compose up` but
+respects the configured update order. In this case, a new container of the
+`greet` service is started before the old container is stopped, resulting in the
+desired overlap of their lifetimes.
 
 ## Tested reverse proxies
 
