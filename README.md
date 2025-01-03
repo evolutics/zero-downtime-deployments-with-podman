@@ -84,6 +84,13 @@ The following shows how to do such a deployment interactively.
    At this point, both service versions are running at the same time with the
    same network alias.
 
+   Thus, the domain name `greet` resolves to _two_ IP addresses in the container
+   network, which you can check with a DNS query like
+
+   ```bash
+   podman run --network test-net --rm docker.io/alpine nslookup greet
+   ```
+
 1. **Stop version A** of your service with
 
    ```bash
