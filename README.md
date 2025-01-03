@@ -1,10 +1,10 @@
 # Zero-downtime deployments with Podman (or Docker)
 
 The motivation is to deploy an updated version of a container without service
-interruption. We want to keep things light and only use rootless Podman.
+interruption. We want to keep things light and only use Podman.
 
-This works with Docker, too, just replace `podman` by `docker` in the commands
-below.
+This works equally well with Docker, just replace `podman` by `docker` in the
+commands below.
 
 ## Overview
 
