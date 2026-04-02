@@ -3,11 +3,11 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo dnf --assumeyes install podman"
 
   config.vm.provision "file", source: "hi@.container",
-    destination: ".config/containers/systemd/hi@.container"
+                              destination: ".config/containers/systemd/hi@.container"
   config.vm.provision "file", source: "reverse-proxy.container",
-    destination: ".config/containers/systemd/reverse-proxy.container"
+                              destination: ".config/containers/systemd/reverse-proxy.container"
   config.vm.provision "file", source: "test-net.network",
-    destination: ".config/containers/systemd/test-net.network"
+                              destination: ".config/containers/systemd/test-net.network"
 
   config.vm.provision "shell", path: "demo.sh", privileged: false
 end
